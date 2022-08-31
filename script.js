@@ -23,7 +23,8 @@ function sucessoQuiz(resposta) {
             <div class="titulo">${resposta.data.questions[i].title}</div>
             <div class=respostasDiv></div>
         </div>`
-
+        let divTitulo = document.querySelector(`.p${i} .titulo`)
+        divTitulo.style.backgroundColor = `${resposta.data.questions[i].color}`;
         let respostasDiv = document.querySelector(`.p${i} .respostasDiv`)
         for (let j=0; j<resposta.data.questions[i].answers.length; j++){
         
@@ -37,7 +38,11 @@ function sucessoQuiz(resposta) {
 function erroQuiz(resposta){
     console.log(resposta)
 }
-//abrirQuiz()
+abrirQuiz();
+
+function comparador() { 
+	return Math.random() - 0.5; 
+}
 
 function BuscarQuizzes() {
     const promessa = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes");
