@@ -1,31 +1,151 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
-*{
+
+* {
     box-sizing: border-box;
 }
+
 body {
-    background-color: #FFFFFF;
+    background-color: #FAFAFA;
     font-family: 'Roboto', sans-serif;
 }
-header{
+
+header {
     width: 100%;
     height: 69px;
+
     position: fixed;
     top: 0;
     left: 0;
-    background-color: #EC362D;
-    font-size: 37px;
-    font-weight: 700;
-    color: #FFFFFF;
+
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 4px 4px #00000025;
+
+    font-size: 37px;
+    font-weight: 700;
+
+    background-color: #EC362D;
+    color: #FFFFFF;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
-.paginaQuiz{
+
+h2 {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.conteudo {
+    width: 100%;
+
     margin-top: 69px;
 }
-.bannerImg{
+
+.bannerImg {
     width: 100%;
     height: 227px;
     filter: brightness(0.6);
+}
+
+.container {
+    width: 1050px;
+    height: 100%;
+
+    margin: 0 auto;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.caixa-criar-quizz {
+    width: 100%;
+    height: 181px;
+
+    border: 1px dashed #D4D4D4;
+    border-radius: 5px;
+
+    margin-top: 5vw;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    text-align: center;
+}
+
+.caixa-criar-quizz p {
+    font-size: 20px;
+
+    color: #B9B9B9;
+}
+
+.caixa-criar-quizz button {
+    width: 151px;
+    height: 40px;
+
+    font-size: 21px;
+
+    color: #EC362D;
+    background-color: #FAFAFA;
+
+    border: 1px dashed #EC362D;
+    border-radius: 50px;
+}
+
+.todos-quizzes {
+    width: 100%;
+
+    margin-top: 5vw;
+}
+
+.quizzes {
+    width: 100%;
+
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.quizz {
+    width: 340px;
+    height: 181px;
+
+    position: relative;
+
+    margin: 10px 5px;
+
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64.58%, #000000 100%);
+
+    border-radius: 5px;
+}
+
+.quizz img {
+    width: 100%;
+    height: 100%;
+
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: -1;
+}
+
+.quizz p {
+    font-size: 19px;
+
+    color: white;
+
+    position: absolute;
+    bottom: 15px;
+    left: 15px;
+}
+
+@media (max-width: 1050px) {
+    .container {
+        width: 700px;
+    }
+}
+
+@media (max-width: 700px) {
+    .container {
+        width: 340px;
+    }
 }
