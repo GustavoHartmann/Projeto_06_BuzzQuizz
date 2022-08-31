@@ -3,7 +3,7 @@
     box-sizing: border-box;
 }
 body {
-    background-color: #FFFFFF;
+    background-color: #FAFAFA;
     font-family: 'Roboto', sans-serif;
 }
 header{
@@ -20,12 +20,72 @@ header{
     align-items: center;
     justify-content: center;
     box-shadow: 0 4px 4px #00000025;
+    z-index: 5;
 }
 .paginaQuiz{
     margin-top: 69px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.banner{
+    width: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 42px;
 }
 .bannerImg{
     width: 100%;
     height: 227px;
     filter: brightness(0.6);
+}
+h1{
+    position: absolute;
+    top: 94px;
+    font-size: 39px;
+    font-weight: 400;
+    color: #FFFFFF;
+}
+.questaoDiv{
+    width: 759px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #FFFFFF;
+    padding: 24px 36px;
+    border-radius: 10px;
+    margin-bottom: 48px;
+}
+.titulo{
+    background-color: red;
+    height: 138px;
+    width: 668px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 23px;
+    font-weight: 700;
+    color: #FFFFFF;
+    margin-bottom: 18px;
+}
+.respostasDiv{
+    width: 668px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.resposta{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 18px;
+}
+.imgResposta{
+    width: 330px;
+    height: 175px;
+    margin-bottom: 20px;
+}
+.textoResposta{
+    font-size: 20px;
+    font-weight: 700;
 }
