@@ -43,6 +43,29 @@ h1 {
     color: #FFFFFF;
 }
 
+input {
+    width: 95%;
+    height: 46px;
+
+    font-size: 19px;
+
+    padding-left: 15px;
+    margin: 5px 0;
+
+    border: 1px solid #BABABA;
+    border-radius: 5px;
+}
+
+input::placeholder {
+    font-style: italic;
+
+    color: #BABABA;
+}
+
+input:focus {
+    outline: none;
+}
+
 .questaoDiv {
     width: 759px;
     display: flex;
@@ -127,7 +150,7 @@ h1 {
     width: 1050px;
     height: 100%;
 
-    margin: 0 auto;
+    margin: 5vw auto 0 auto;
 
     display: flex;
     flex-direction: column;
@@ -141,7 +164,7 @@ h1 {
     border: 1px dashed #D4D4D4;
     border-radius: 5px;
 
-    margin-top: 5vw;
+    margin-bottom: 5vw;
 
     display: flex;
     flex-direction: column;
@@ -171,14 +194,10 @@ h1 {
 
 .todos-quizzes {
     width: 100%;
-
-    margin-top: 5vw;
 }
 
 .seus-quizzes {
     width: 100%;
-
-    margin-top: 5vw;
 
     position: relative;
 }
@@ -235,6 +254,29 @@ h1 {
     left: 15px;
 }
 
+.caixa-criacao {
+    width: 600px;
+
+    background-color: #FFFFFF;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+
+    margin: 30px 0 10vw 0;
+    padding: 20px 0 20px 25px;
+}
+
+.botao {
+    width: 375px;
+    height: 54px;
+
+    font-size: 21px;
+
+    background-color: #EC362D;
+    color: #FFF5F4;
+
+    border: none;
+    border-radius: 15px;
+}
+
 @media (max-width: 1050px) {
     .container {
         width: 700px;
@@ -248,5 +290,19 @@ h1 {
 
     .seus-quizzes ion-icon {
         left: 310px;
+    }
+}
+
+@media (max-width: 600px) {
+    input {
+        font-size: 15px;
+    }
+
+    .caixa-criacao {
+        width: 100vw;
+    }
+
+    .botao {
+        width: 300px;
     }
 }
