@@ -110,8 +110,10 @@ input:focus {
 }
 
 .textoResposta {
+    width: 330px;
     font-size: 20px;
     font-weight: 700;
+    word-wrap: break-word;
 }
 .esbranquica{
     filter: opacity(0.3);
@@ -121,6 +123,67 @@ input:focus {
 }
 .vermelho{
     color: #FF4B4B;
+}
+.resultadoQuiz{
+    width: 759px;
+    height: 430px;
+    background-color: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    margin-bottom: 48px;
+}
+.títuloResultado{
+    background-color: #EC362D;
+    width: 727px;
+    height: 99px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 23px;
+    font-weight: 700;
+    color: #FFFFFF;
+    margin-bottom: 18px;
+}
+.imgEDescricao{
+    display: flex;
+}
+.imgResultado{
+    width: 364px;
+    height: 273px;
+    margin-right: 21px;
+}
+.descricaoResultado{
+    width: 328px;
+    height: 273px;
+    font-size: 19px;
+    font-weight: 700;
+    color: #484848;
+    padding-top: 4px;
+    word-wrap: break-word;
+}
+.botaoQuiz{
+    width: 260px;
+    height: 52px;
+    border: none;
+    border-radius: 15px;
+    font-size: 21px;
+    font-weight: 400;
+    margin-bottom: 10px;
+}
+.botaoVermelho{
+    background-color: #EC362D;
+    color: #FAFAFA;
+}
+.botaoBranco{
+    background-color: #ffffff00;
+    color: #818181;
+    margin-bottom: 30px;
+}
+.oculta{
+    display: none;
 }
 
 .conteudo {
