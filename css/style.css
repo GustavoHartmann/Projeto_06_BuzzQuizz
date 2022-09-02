@@ -5,6 +5,7 @@
 }
 
 body {
+    width: 100%;
     background-color: #FAFAFA;
     font-family: 'Roboto', sans-serif;
 }
@@ -79,6 +80,7 @@ input:focus {
     padding: 24px 36px;
     border-radius: 10px;
     margin-bottom: 48px;
+    box-shadow: 0px 0px 10px #00000007;
 }
 
 .titulo {
@@ -105,6 +107,7 @@ input:focus {
     display: flex;
     flex-direction: column;
     margin-bottom: 18px;
+    transition: filter 0.3s;
 }
 
 .imgResposta {
@@ -138,8 +141,9 @@ input:focus {
     justify-content: center;
     border-radius: 10px;
     margin-bottom: 48px;
+    box-shadow: 0px 0px 10px #00000007;
 }
-.títuloResultado{
+.tituloResultado{
     background-color: #EC362D;
     width: 727px;
     height: 99px;
@@ -368,13 +372,79 @@ input:focus {
 
 @media (max-width: 1050px) {
     .container {
-        width: 700px;
+        width: 100%;
+    }
+}
+
+@media (max-width: 800px){
+    .bannerImg{
+        height: 142px;
+    }
+    h1{
+        font-size: 19px;
+    }
+    .questaoDiv{
+        width: 100%;
+        padding: 23px 16px;
+        margin-bottom: 28px;
+    }
+    .respostasDiv{
+        width: 100%;
+    }
+    .titulo{
+        width: 100%;
+        height: 89px;
+    }
+    .resposta{
+        width: 49%;
+        height: 25.9%;
+    }
+    .imgResposta{
+        width: 100%;
+        max-height: 175px;
+        height: 100%;
+        margin-bottom: 10px;
+    }
+    .textoResposta{
+        width: 100%;
+        font-size: 13px;
+    }
+    .resultadoQuiz{
+        width: 100%;
+        height: 100%;
+        padding: 23px 16px;
+        margin-bottom: 28px;
+    }
+    .tituloResultado{
+        width: 100%;
+        padding: 0 18px;
+    }
+    .imgEDescricao{
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
+    }
+    .imgResultado{
+        width: 100%;
+        margin:0;
+        margin-bottom: 25px;
+        max-height: 614px;
+        height: 100%;
+    }
+    .descricaoResultado{
+        width: 100%;
+        height: 100%;
+    }
+    .botaoQuiz{
+        width: 220px;
+        height: 44px;
+        font-size: 18px;
     }
 }
 
 @media (max-width: 700px) {
     .container {
-        width: 340px;
+        width: 100%;
     }
 
     .seus-quizzes ion-icon {
@@ -393,5 +463,15 @@ input:focus {
 
     .botao {
         width: 300px;
+    }
+}
+@media (max-width: 500px){
+    .imgResposta{
+        max-height: 134px;
+    }
+}
+@media (max-width: 500px){
+    .imgResposta{
+        max-height: 101px;
     }
 }

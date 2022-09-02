@@ -53,13 +53,13 @@ function sucessoQuiz(resposta) {
         for (let j = 0; j < resposta.data.questions[i].answers.length; j++) {
             if (resposta.data.questions[i].answers[j].isCorrectAnswer){
             respostasDiv.innerHTML +=
-                `<div class="resposta right" onclick="clicaResposta(this); setTempo(this); respostaCerta(this); testaFim()">
+                `<div class="resposta right" onclick="clicaResposta(this); setTempo(this); respostaCerta(this); testaFim(this)">
                     <img class="imgResposta" src="${resposta.data.questions[i].answers[j].image}"></img>
                     <span class="textoResposta">${resposta.data.questions[i].answers[j].text}<span>
                 </div>`
             } else {
                 respostasDiv.innerHTML +=
-                `<div class="resposta" onclick="clicaResposta(this); setTempo(this); testaFim()">
+                `<div class="resposta" onclick="clicaResposta(this); setTempo(this); testaFim(this)">
                     <img class="imgResposta" src="${resposta.data.questions[i].answers[j].image}"></img>
                     <span class="textoResposta">${resposta.data.questions[i].answers[j].text}<span>
                 </div>`
@@ -70,7 +70,7 @@ function sucessoQuiz(resposta) {
         minValores.push(resposta.data.levels[i].minValue)
         container.innerHTML += `
         <div class="resultadoQuiz r${i} oculta">
-            <span class="títuloResultado">${resposta.data.levels[i].title}</span>
+            <div class="tituloResultado">${resposta.data.levels[i].title}</div>
             <div class="imgEDescricao"">
                 <img class="imgResultado" src="${resposta.data.levels[i].image}"></img>
                 <span class="descricaoResultado">${resposta.data.levels[i].text}</span>
@@ -119,27 +119,30 @@ function respostaCerta(elemento){
     }
 }
 
-function testaFim(){
-    if (respondidos.length===qtdRespostas){
-        let pontuacao = Math.round(certa/qtdRespostas*(100))
-        for (let i=0; i<minValores.length; i++){
-            if (pontuacao>=minValores[i] && pontuacao<=minValores[i+1]){
-                const resultado = document.querySelector(`.r${i}`)
+function testaFim(argumento){
+    if (!argumento.parentNode.classList.contains('endReady')){    
+        if (respondidos.length===qtdRespostas){
+            let pontuacao = Math.round(certa/qtdRespostas*(100))
+            for (let i=0; i<minValores.length; i++){
+                if (pontuacao>=minValores[i] && pontuacao<=minValores[i+1]){
+                    const resultado = document.querySelector(`.r${i}`)
+                    const tituloResultado = resultado.children[0]
+                    resultado.classList.remove('oculta')
+                    tituloResultado.innerHTML= `${pontuacao}% de acerto: ${tituloResultado.innerHTML}`
+                    setTempoResultado(resultado)
+                } 
+            }
+            if (pontuacao>=minValores[minValores.length-1]) {
+                const todosresultados = document.querySelectorAll(`.resultadoQuiz`)
+                const resultado=todosresultados[(todosresultados.length)-1]
                 const tituloResultado = resultado.children[0]
                 resultado.classList.remove('oculta')
                 tituloResultado.innerHTML= `${pontuacao}% de acerto: ${tituloResultado.innerHTML}`
                 setTempoResultado(resultado)
-            } 
-        }
-        if (pontuacao>=minValores[minValores.length-1]) {
-            const todosresultados = document.querySelectorAll(`.resultadoQuiz`)
-            const resultado=todosresultados[(todosresultados.length)-1]
-            const tituloResultado = resultado.children[0]
-            resultado.classList.remove('oculta')
-            tituloResultado.innerHTML= `${pontuacao}% de acerto: ${tituloResultado.innerHTML}`
-            setTempoResultado(resultado)
+            }
         }
     }
+    argumento.parentNode.classList.add('endReady')
 }
 
 function setTempoResultado(argumento){
