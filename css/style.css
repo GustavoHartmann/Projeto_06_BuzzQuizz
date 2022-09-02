@@ -66,6 +66,32 @@ input:focus {
     outline: none;
 }
 
+textarea {
+    width: 95%;
+    min-height: 46px;
+
+    font-size: 19px;
+    font-family: 'Roboto', sans-serif;
+
+    padding: 10px 0 0 15px;
+    margin: 5px 0;
+
+    border: 1px solid #BABABA;
+    border-radius: 5px;
+
+    resize: vertical;
+}
+
+textarea::placeholder {
+    font-style: italic;
+
+    color: #BABABA;
+}
+
+textarea:focus {
+    outline: none;
+}
+
 .escondido {
     display: none;
 }
@@ -119,16 +145,20 @@ input:focus {
     font-weight: 700;
     word-wrap: break-word;
 }
-.esbranquica{
+
+.esbranquica {
     filter: opacity(0.3);
 }
-.verde{
+
+.verde {
     color: #009C22;
 }
-.vermelho{
+
+.vermelho {
     color: #FF4B4B;
 }
-.resultadoQuiz{
+
+.resultadoQuiz {
     width: 759px;
     height: 430px;
     background-color: #FFFFFF;
@@ -139,7 +169,8 @@ input:focus {
     border-radius: 10px;
     margin-bottom: 48px;
 }
-.títuloResultado{
+
+.títuloResultado {
     background-color: #EC362D;
     width: 727px;
     height: 99px;
@@ -151,15 +182,18 @@ input:focus {
     color: #FFFFFF;
     margin-bottom: 18px;
 }
-.imgEDescricao{
+
+.imgEDescricao {
     display: flex;
 }
-.imgResultado{
+
+.imgResultado {
     width: 364px;
     height: 273px;
     margin-right: 21px;
 }
-.descricaoResultado{
+
+.descricaoResultado {
     width: 328px;
     height: 273px;
     font-size: 19px;
@@ -168,7 +202,8 @@ input:focus {
     padding-top: 4px;
     word-wrap: break-word;
 }
-.botaoQuiz{
+
+.botaoQuiz {
     width: 260px;
     height: 52px;
     border: none;
@@ -177,16 +212,19 @@ input:focus {
     font-weight: 400;
     margin-bottom: 10px;
 }
-.botaoVermelho{
+
+.botaoVermelho {
     background-color: #EC362D;
     color: #FAFAFA;
 }
-.botaoBranco{
+
+.botaoBranco {
     background-color: #ffffff00;
     color: #818181;
     margin-bottom: 30px;
 }
-.oculta{
+
+.oculta {
     display: none;
 }
 
@@ -292,7 +330,7 @@ input:focus {
 
     position: relative;
 
-    margin: 10px 5px;
+    margin: 5vw 5px 10px 5px;
 
     background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64.58%, #000000 100%);
 

@@ -1,11 +1,10 @@
-
 const conteudo = document.querySelector('.conteudo');
 let container = document.querySelector('.container');
 const statusCode404 = 404;
 let tituloQuizzCriado = "";
 let URLImagemQuizzCriado = "";
 let qtdPerguntasQuizzCriado = 0;
-let qtdNiveisQuizzCriado = 0;
+let qtdNiveisQuizzCriado = 4;
 let respondidos = [];
 let qtdRespostas = 0;
 let certa = 0;
@@ -20,6 +19,10 @@ let respostaIncorreta2QuizzCriado = [];
 let URLRespostaIncorreta2QuizzCriado = [];
 let respostaIncorreta3QuizzCriado = [];
 let URLRespostaIncorreta3QuizzCriado = [];
+let tituloNivelQuizzCriado = [];
+let porcentagemAcertoNivelQuizzCriado = [];
+let URLNivelQuizzCriado = [];
+let descriçãoNivelQuizzCriado = [];
 
 function abrirQuiz() {
     let promessaQuiz = axios.get('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/4000');
@@ -38,8 +41,8 @@ function sucessoQuiz(resposta) {
             <h1>${resposta.data.title}</h1>
         </div>
         <div class="container"></div>`
-        container = document.querySelector('.container');
-        container.style.margin = "0";
+    container = document.querySelector('.container');
+    container.style.margin = "0";
     for (let i = 0; i < resposta.data.questions.length; i++) {
         resposta.data.questions[i].answers.sort(comparador)
         container.innerHTML += `
@@ -51,22 +54,22 @@ function sucessoQuiz(resposta) {
         divTitulo.style.backgroundColor = `${resposta.data.questions[i].color}`;
         let respostasDiv = document.querySelector(`.p${i} .respostasDiv`)
         for (let j = 0; j < resposta.data.questions[i].answers.length; j++) {
-            if (resposta.data.questions[i].answers[j].isCorrectAnswer){
-            respostasDiv.innerHTML +=
-                `<div class="resposta right" onclick="clicaResposta(this); setTempo(this); respostaCerta(this); testaFim()">
+            if (resposta.data.questions[i].answers[j].isCorrectAnswer) {
+                respostasDiv.innerHTML +=
+                    `<div class="resposta right" onclick="clicaResposta(this); setTempo(this); respostaCerta(this); testaFim()">
                     <img class="imgResposta" src="${resposta.data.questions[i].answers[j].image}"></img>
                     <span class="textoResposta">${resposta.data.questions[i].answers[j].text}<span>
                 </div>`
             } else {
                 respostasDiv.innerHTML +=
-                `<div class="resposta" onclick="clicaResposta(this); setTempo(this); testaFim()">
+                    `<div class="resposta" onclick="clicaResposta(this); setTempo(this); testaFim()">
                     <img class="imgResposta" src="${resposta.data.questions[i].answers[j].image}"></img>
                     <span class="textoResposta">${resposta.data.questions[i].answers[j].text}<span>
                 </div>`
             }
         }
     }
-    for (let i=0; i<resposta.data.levels.length; i++){
+    for (let i = 0; i < resposta.data.levels.length; i++) {
         minValores.push(resposta.data.levels[i].minValue)
         container.innerHTML += `
         <div class="resultadoQuiz r${i} oculta">
@@ -77,7 +80,7 @@ function sucessoQuiz(resposta) {
             </div>
         </div>`
     }
-    container.innerHTML+=`
+    container.innerHTML += `
     <button class="botaoQuiz botaoVermelho" onclick="abrirQuiz(); scrollarTop()">Reiniciar Quizz</button>
     <button class="botaoQuiz botaoBranco" onclick="reseta()">Voltar pra home</button>
     `
@@ -94,7 +97,7 @@ function clicaResposta(respostaEscolhida) {
         } else {
             respostasDiv.children[i].classList.add('vermelho')
         }
-        if (respostaEscolhida.classList.contains('esbranquica')){
+        if (respostaEscolhida.classList.contains('esbranquica')) {
             break
         } else if (respostasDiv.children[i] !== respostaEscolhida) {
             respostasDiv.children[i].classList.add('esbranquica')
@@ -102,56 +105,56 @@ function clicaResposta(respostaEscolhida) {
     }
 
 }
-function setTempo(elemento){
-    if (!elemento.parentNode.classList.contains('respondido')){
+function setTempo(elemento) {
+    if (!elemento.parentNode.classList.contains('respondido')) {
         respondidos.push(elemento)
-        setTimeout(setScroll,2000,elemento)
+        setTimeout(setScroll, 2000, elemento)
     }
     elemento.parentNode.classList.add('respondido')
 }
-function setScroll(elemento){
+function setScroll(elemento) {
     let proximaquestao = elemento.parentNode.parentNode.nextElementSibling
     proximaquestao.scrollIntoView()
 }
-function respostaCerta(elemento){
-    if (!elemento.classList.contains('esbranquica')){
+function respostaCerta(elemento) {
+    if (!elemento.classList.contains('esbranquica')) {
         certa++
     }
 }
 
-function testaFim(){
-    if (respondidos.length===qtdRespostas){
-        let pontuacao = Math.round(certa/qtdRespostas*(100))
-        for (let i=0; i<minValores.length; i++){
-            if (pontuacao>=minValores[i] && pontuacao<=minValores[i+1]){
+function testaFim() {
+    if (respondidos.length === qtdRespostas) {
+        let pontuacao = Math.round(certa / qtdRespostas * (100))
+        for (let i = 0; i < minValores.length; i++) {
+            if (pontuacao >= minValores[i] && pontuacao <= minValores[i + 1]) {
                 const resultado = document.querySelector(`.r${i}`)
                 const tituloResultado = resultado.children[0]
                 resultado.classList.remove('oculta')
-                tituloResultado.innerHTML= `${pontuacao}% de acerto: ${tituloResultado.innerHTML}`
+                tituloResultado.innerHTML = `${pontuacao}% de acerto: ${tituloResultado.innerHTML}`
                 setTempoResultado(resultado)
-            } 
+            }
         }
-        if (pontuacao>=minValores[minValores.length-1]) {
+        if (pontuacao >= minValores[minValores.length - 1]) {
             const todosresultados = document.querySelectorAll(`.resultadoQuiz`)
-            const resultado=todosresultados[(todosresultados.length)-1]
+            const resultado = todosresultados[(todosresultados.length) - 1]
             const tituloResultado = resultado.children[0]
             resultado.classList.remove('oculta')
-            tituloResultado.innerHTML= `${pontuacao}% de acerto: ${tituloResultado.innerHTML}`
+            tituloResultado.innerHTML = `${pontuacao}% de acerto: ${tituloResultado.innerHTML}`
             setTempoResultado(resultado)
         }
     }
 }
 
-function setTempoResultado(argumento){
-    setTimeout(setScrollResultado,2000,argumento)
+function setTempoResultado(argumento) {
+    setTimeout(setScrollResultado, 2000, argumento)
 }
-function setScrollResultado(argumento){
+function setScrollResultado(argumento) {
     argumento.scrollIntoView()
 }
-function reseta(){
+function reseta() {
     window.location.reload(true)
 }
-function scrollarTop(){
+function scrollarTop() {
     const top = document.querySelector('.banner')
     top.scrollIntoView(true)
 }
@@ -198,12 +201,11 @@ function criarQuizz() {
     conteudo.innerHTML = `
     <div class="container">
         <h2>Comece pelo começo</h2>
-
         <div class="caixa-criacao">
             <input type="text" placeholder="Título do seu quizz">
             <input type="text" placeholder="URL da imagem do seu quizz">
-            <input type="text" placeholder="Quantidade de perguntas do seu quizz">
-            <input type="text" placeholder="Quantidade de níveis do seu quizz">
+            <input type="number" placeholder="Quantidade de perguntas do seu quizz">
+            <input type="number" placeholder="Quantidade de níveis do seu quizz">
         </div>
         <button class="botao" onclick="checarInformacoesBasicas()">Prosseguir para criar perguntas</button>
     </div>
@@ -235,13 +237,11 @@ function prosseguirCriacaoPerguntas() {
                     <input type="text" placeholder="Texto da pergunta">
                     <input type="color" placeholder="Cor de fundo da pergunta">
                 </div>
-
                 <div class="criacao-resposta-correta">
                     <h2>Resposta correta</h2>
                     <input type="text" placeholder="Resposta correta">
                     <input type="text" placeholder="URL da imagem">
                 </div>
-
                 <div class="criacao-respostas-incorretas">
                     <h2>Respostas incorretas</h2>
                     <div class="criacao-resposta-incorreta1">
@@ -273,13 +273,11 @@ function prosseguirCriacaoPerguntas() {
                     <input type="text" placeholder="Texto da pergunta">
                     <input type="color" placeholder="Cor de fundo da pergunta">
                 </div>
-
                 <div class="criacao-resposta-correta">
                     <h2>Resposta correta</h2>
                     <input type="text" placeholder="Resposta correta">
                     <input type="text" placeholder="URL da imagem">
                 </div>
-
                 <div class="criacao-respostas-incorretas">
                     <h2>Respostas incorretas</h2>
                     <div class="criacao-resposta-incorreta1">
@@ -312,7 +310,7 @@ function checarPerguntas() {
     URLRespostaIncorreta2QuizzCriado = [];
     respostaIncorreta3QuizzCriado = [];
     URLRespostaIncorreta3QuizzCriado = [];
-    const titulos = document.querySelectorAll(".criacao-pergunta :nth-child(1)");
+    const tituloPergunta = document.querySelectorAll(".criacao-pergunta :nth-child(1)");
     const corPergunta = document.querySelectorAll(".criacao-pergunta :nth-child(2)");
     const respostaCorreta = document.querySelectorAll(".criacao-resposta-correta :nth-child(2)");
     const URLRespostaCorreta = document.querySelectorAll(".criacao-resposta-correta :nth-child(3)");
@@ -323,7 +321,7 @@ function checarPerguntas() {
     const respostaIncorreta3 = document.querySelectorAll(".criacao-resposta-incorreta3 :nth-child(1)");
     const URLRespostaIncorreta3 = document.querySelectorAll(".criacao-resposta-incorreta3 :nth-child(2)");
     for (let i = 0; i < qtdPerguntasQuizzCriado; i++) {
-        if (titulos[i].value < 20) {
+        if (tituloPergunta[i].value < 20) {
             alert("Preencha os dados corretamente");
             i = qtdPerguntasQuizzCriado;
         } else if (respostaCorreta[i].value === "") {
@@ -354,7 +352,7 @@ function checarPerguntas() {
             }
         }
 
-        titulosPerguntasQuizzCriado.push(titulos[i].value);
+        titulosPerguntasQuizzCriado.push(tituloPergunta[i].value);
         corPerguntasQuizzCriado.push(corPergunta[i].value);
         respostaCorretaQuizzCriado.push(respostaCorreta[i].value);
         URLRespostaCorretaQuizzCriado.push(URLRespostaCorreta[i].value);
@@ -371,4 +369,83 @@ function checarPerguntas() {
 function minimizarCaixaPerguntas(caixa) {
     const infoPergunta = caixa.nextElementSibling;
     infoPergunta.classList.toggle("escondido");
+}
+
+function prosseguirCriacaoNiveis() {
+    conteudo.innerHTML = `
+    <div class="container">
+        <h2>Agora, decida os níveis</h2>
+        <div class="niveis">
+            <div class="caixa-criacao">
+                <h2>Nível 1</h2>
+                <ion-icon name="create-outline" onclick="minimizarCaixaNiveis(this)"></ion-icon>
+                <div class="info-niveis">
+                    <input type="text" placeholder="Título do nível">
+                    <input type="number" placeholder="% de acerto mínima">
+                    <input type="text" placeholder="URL da imagem do nível">
+                    <textarea rows="1" placeholder="Descrição do nível"></textarea>
+                </div>
+            </div>
+        </div>
+        <button class="botao" onclick="checarNiveis()">Finalizar Quizz</button>
+    </div>`
+    const niveis = document.querySelector(".niveis");
+    for (let i = 0; i < qtdNiveisQuizzCriado - 1; i++) {
+        niveis.innerHTML += `
+        <div class="caixa-criacao">
+                <h2>Nível ${i + 2}</h2>
+                <ion-icon name="create-outline" onclick="minimizarCaixaNiveis(this)"></ion-icon>
+                <div class="info-niveis escondido">
+                    <input type="text" placeholder="Título do nível">
+                    <input type="number" placeholder="% de acerto mínima">
+                    <input type="text" placeholder="URL da imagem do nível">
+                    <textarea rows="1" placeholder="Descrição do nível"></textarea>
+                </div>
+            </div>`
+    }
+}
+
+function minimizarCaixaNiveis(caixa) {
+    const infoNiveis = caixa.nextElementSibling;
+    infoNiveis.classList.toggle("escondido");
+}
+
+function checarNiveis() {
+    let tituloNivelQuizzCriado = [];
+    let porcentagemAcertoNivelQuizzCriado = [];
+    let URLNivelQuizzCriado = [];
+    let descriçãoNivelQuizzCriado = [];
+    const tituloNivel = document.querySelectorAll(".info-niveis :nth-child(1)");
+    const porcentagemAcertoNivel = document.querySelectorAll(".info-niveis :nth-child(2)");
+    const URLNivel = document.querySelectorAll(".info-niveis :nth-child(3)");
+    const descriçãoNivel = document.querySelectorAll(".info-niveis :nth-child(4)");
+    for (let i = 0; i < qtdNiveisQuizzCriado; i++) {
+        if (tituloNivel[i].value < 10) {
+            alert("Preencha os dados corretamente");
+            i = qtdNiveisQuizzCriado;
+        } else if (Number(porcentagemAcertoNivel[i].value) === "" || Number(porcentagemAcertoNivel[i].value) < 0 || Number(porcentagemAcertoNivel[i].value) > 100) {
+            alert("Preencha os dados corretamente");
+            i = qtdNiveisQuizzCriado;
+        } else if (!(URLNivel[i].value.startsWith('https://') || URLNivel[i].value.startsWith('http://'))) {
+            alert("Preencha os dados corretamente");
+            i = qtdNiveisQuizzCriado;
+        } else if (descriçãoNivel[i].value < 30) {
+            alert("Preencha os dados corretamente");
+            i = qtdNiveisQuizzCriado;
+        }
+        tituloNivelQuizzCriado.push(tituloNivel[i].value);
+        porcentagemAcertoNivelQuizzCriado.push(Number(porcentagemAcertoNivel[i].value));
+        URLNivelQuizzCriado.push(URLNivel[i].value);
+        descriçãoNivelQuizzCriado.push(descriçãoNivel[i].value);
+
+    }
+    if (porcentagemAcertoNivelQuizzCriado.includes(0)) {
+        finalizarQuizz();
+    } else {
+        alert("Preencha os dados corretamente");
+    }
+}
+
+function finalizarQuizz() {
+    console.log("finalizou");
 }
