@@ -470,7 +470,7 @@ input:focus {
         max-height: 134px;
     }
 }
-@media (max-width: 500px){
+@media (max-width: 374px){
     .imgResposta{
         max-height: 101px;
     }
