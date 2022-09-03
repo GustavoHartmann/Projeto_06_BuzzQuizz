@@ -38,10 +38,12 @@ h2 {
 
 h1 {
     position: absolute;
-    top: 94px;
     font-size: 39px;
     font-weight: 400;
     color: #FFFFFF;
+    word-wrap: break-word;
+    max-width: 100%;
+    padding: 0 16px;
 }
 
 input {
@@ -123,6 +125,12 @@ textarea:focus {
     word-wrap: break-word;
 }
 
+.textoTitulo{
+    word-wrap: break-word;
+    margin: 0 16px;
+    width: 100%;
+}
+
 .respostasDiv {
     width: 668px;
     display: flex;
@@ -182,13 +190,13 @@ textarea:focus {
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 0 16px;
     font-size: 23px;
     font-weight: 700;
     color: #FFFFFF;
     margin-bottom: 18px;
-    
+    word-wrap: break-word;
 }
-
 .imgEDescricao {
     display: flex;
 }
@@ -248,6 +256,7 @@ textarea:focus {
     position: relative;
     display: flex;
     justify-content: center;
+    align-items: center;
     margin-bottom: 42px;
 }
 
@@ -438,6 +447,7 @@ textarea:focus {
 
     h1 {
         font-size: 19px;
+        word-wrap: break-word;
     }
 
     .questaoDiv {
@@ -452,7 +462,13 @@ textarea:focus {
 
     .titulo {
         width: 100%;
-        height: 89px;
+        max-width: 100%;
+        min-height: 89px;
+        word-wrap: break-word;
+    }
+    .textoTitulo{
+        max-width: 100%;
+        word-wrap: break-word;
     }
 
     .resposta {

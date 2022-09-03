@@ -52,7 +52,7 @@ function sucessoQuiz(resposta) {
         resposta.data.questions[i].answers.sort(comparador)
         paginaQuiz.innerHTML += `
         <div class="questaoDiv p${i}">
-            <div class="titulo">${resposta.data.questions[i].title}</div>
+            <div class="titulo"><span class="textoTitulo">${resposta.data.questions[i].title}</span></div>
             <div class=respostasDiv></div>
         </div>`
         let divTitulo = document.querySelector(`.p${i} .titulo`)
@@ -78,7 +78,7 @@ function sucessoQuiz(resposta) {
         minValores.push(resposta.data.levels[i].minValue)
         paginaQuiz.innerHTML += `
         <div class="resultadoQuiz r${i} oculta">
-            <div class="tituloResultado">${resposta.data.levels[i].title}</div>
+            <div class="tituloResultado"><span class="textTituloResultado">${resposta.data.levels[i].title}</span></div>
             <div class="imgEDescricao"">
                 <img class="imgResultado" src="${resposta.data.levels[i].image}"></img>
                 <span class="descricaoResultado">${resposta.data.levels[i].text}</span>
@@ -141,7 +141,7 @@ function testaFim(argumento) {
                     botaoVermelho.classList.remove('oculta')
                     botaoBranco.classList.remove('oculta')
                     resultado.classList.remove('oculta')
-                    tituloResultado.innerHTML = `${pontuacao}% de acerto: ${tituloResultado.innerHTML}`
+                    tituloResultado.children[0].innerHTML = `${pontuacao}% de acerto: ${tituloResultado.children[0].innerHTML}`
                     setTempoResultado(resultado)
                 }
             }
@@ -155,7 +155,7 @@ function testaFim(argumento) {
                 botaoVermelho.classList.remove('oculta')
                 botaoBranco.classList.remove('oculta')
                 resultado.classList.remove('oculta')
-                tituloResultado.innerHTML = `${pontuacao}% de acerto: ${tituloResultado.innerHTML}`
+                tituloResultado.children[0].innerHTML = `${pontuacao}% de acerto: ${tituloResultado.children[0].innerHTML}`
                 setTempoResultado(resultado)
             }
         }
