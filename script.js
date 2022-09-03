@@ -4,7 +4,7 @@ const statusCode404 = 404;
 let tituloQuizzCriado = "";
 let URLImagemQuizzCriado = "";
 let qtdPerguntasQuizzCriado = 0;
-let qtdNiveisQuizzCriado = 4;
+let qtdNiveisQuizzCriado = 0;
 let respondidos = [];
 let qtdRespostas = 0;
 let certa = 0;
@@ -23,10 +23,11 @@ let tituloNivelQuizzCriado = [];
 let porcentagemAcertoNivelQuizzCriado = [];
 let URLNivelQuizzCriado = [];
 let descriçãoNivelQuizzCriado = [];
+let novoQuizzCriado = {};
 let quizEscolhido = ""
 
 function abrirQuiz(argumento) {
-    if (quizEscolhido===""){
+    if (quizEscolhido === "") {
         quizEscolhido = argumento.children[0].alt
     }
     let promessaQuiz = axios.get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${quizEscolhido}`);
@@ -429,10 +430,10 @@ function minimizarCaixaNiveis(caixa) {
 }
 
 function checarNiveis() {
-    let tituloNivelQuizzCriado = [];
-    let porcentagemAcertoNivelQuizzCriado = [];
-    let URLNivelQuizzCriado = [];
-    let descriçãoNivelQuizzCriado = [];
+    tituloNivelQuizzCriado = [];
+    porcentagemAcertoNivelQuizzCriado = [];
+    URLNivelQuizzCriado = [];
+    descriçãoNivelQuizzCriado = [];
     const tituloNivel = document.querySelectorAll(".info-niveis :nth-child(1)");
     const porcentagemAcertoNivel = document.querySelectorAll(".info-niveis :nth-child(2)");
     const URLNivel = document.querySelectorAll(".info-niveis :nth-child(3)");
@@ -465,5 +466,102 @@ function checarNiveis() {
 }
 
 function finalizarQuizz() {
-    console.log("finalizou");
+    criarNovoQuizz();
+    enviarQuizzUsuarioParaServidor();
+    conteudo.innerHTML = `
+    <div class="container">
+        <h2>Seu quizz está pronto</h2>
+
+        <div class="quizz sucesso">
+            <img src="${URLImagemQuizzCriado}" alt="imagem do quizz">
+            <p>${tituloQuizzCriado}</p>
+        </div>
+        <button class="botao">Acessar o quizz</button>
+           <button class="home">Voltar para o Home</button>
+    </div>
+    `
+}
+
+function criarNovoQuizz() {
+    let questions = [];
+    let answers = [];
+    let levels = [];
+    for (let i = 0; i < qtdPerguntasQuizzCriado; i++) {
+        if (respostaIncorreta2QuizzCriado[i] === "") {
+            answers.push([{
+                text: respostaCorretaQuizzCriado[i],
+                image: URLRespostaCorretaQuizzCriado[i],
+                isCorrectAnswer: true
+            },
+            {
+                text: respostaIncorreta1QuizzCriado[i],
+                image: URLRespostaIncorreta1QuizzCriado[i],
+                isCorrectAnswer: false
+            }])
+        } else {
+            if (respostaIncorreta3QuizzCriado[i] === "") {
+                answers.push([{
+                    text: respostaCorretaQuizzCriado[i],
+                    image: URLRespostaCorretaQuizzCriado[i],
+                    isCorrectAnswer: true
+                },
+                {
+                    text: respostaIncorreta1QuizzCriado[i],
+                    image: URLRespostaIncorreta1QuizzCriado[i],
+                    isCorrectAnswer: false
+                },
+                {
+                    text: respostaIncorreta2QuizzCriado[i],
+                    image: URLRespostaIncorreta2QuizzCriado[i],
+                    isCorrectAnswer: false
+                }])
+            } else {
+                answers.push([{
+                    text: respostaCorretaQuizzCriado[i],
+                    image: URLRespostaCorretaQuizzCriado[i],
+                    isCorrectAnswer: true
+                },
+                {
+                    text: respostaIncorreta1QuizzCriado[i],
+                    image: URLRespostaIncorreta1QuizzCriado[i],
+                    isCorrectAnswer: false
+                },
+                {
+                    text: respostaIncorreta2QuizzCriado[i],
+                    image: URLRespostaIncorreta2QuizzCriado[i],
+                    isCorrectAnswer: false
+                },
+                {
+                    text: respostaIncorreta3QuizzCriado[i],
+                    image: URLRespostaIncorreta3QuizzCriado[i],
+                    isCorrectAnswer: false
+                }])
+            }
+        }
+    }
+    for (let i = 0; i < qtdPerguntasQuizzCriado; i++) {
+        questions.push({
+            title: titulosPerguntasQuizzCriado[i],
+            color: corPerguntasQuizzCriado[i],
+            answers: answers[i]
+        });
+    }
+    for (let i = 0; i < qtdNiveisQuizzCriado; i++) {
+        levels.push({
+            title: tituloNivelQuizzCriado[i],
+            image: URLNivelQuizzCriado[i],
+            text: descriçãoNivelQuizzCriado[i],
+            minValue: porcentagemAcertoNivelQuizzCriado[i]
+        })
+    }
+    novoQuizzCriado = {
+        title: tituloQuizzCriado,
+        image: URLImagemQuizzCriado,
+        questions: questions,
+        levels: levels
+    }
+}
+
+function enviarQuizzUsuarioParaServidor() {
+    //const promessa = axios.post("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes", novoQuizzCriado)
 }

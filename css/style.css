@@ -95,6 +95,10 @@ textarea:focus {
     outline: none;
 }
 
+img {
+    object-fit: cover;
+}
+
 .escondido {
     display: none;
 }
@@ -276,7 +280,8 @@ textarea:focus {
     flex-direction: column;
     align-items: center;
 }
-.paginaQuiz{
+
+.paginaQuiz {
     width: 1050px;
     height: 100%;
 
@@ -421,21 +426,36 @@ textarea:focus {
     border: none;
     border-radius: 15px;
 
-    margin: 10vw 0;
+    margin: 5vw 0;
 }
 
 .criacao-respostas-incorretas>div {
     margin-bottom: 30px;
 }
 
+.sucesso {
+    width: 500px;
+    height: 260px;
+}
+
+.home {
+    font-size: 21px;
+
+    color: #818181;
+    background: none;
+    border: none;
+}
+
 @media (max-width: 1050px) {
     .container {
         width: 700px;
     }
-    .conteudo{
+
+    .conteudo {
         width: 100%;
     }
-    .paginaQuiz{
+
+    .paginaQuiz {
         width: 100%;
     }
 }
@@ -553,9 +573,15 @@ textarea:focus {
     .imgResposta {
         max-height: 134px;
     }
+
+    .sucesso {
+        width: 340px;
+        height: 181px;
+    }
 }
-@media (max-width: 374px){
-    .imgResposta{
+
+@media (max-width: 374px) {
+    .imgResposta {
         max-height: 101px;
     }
 }
