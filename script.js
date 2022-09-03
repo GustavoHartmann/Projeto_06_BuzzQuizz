@@ -23,9 +23,13 @@ let tituloNivelQuizzCriado = [];
 let porcentagemAcertoNivelQuizzCriado = [];
 let URLNivelQuizzCriado = [];
 let descriçãoNivelQuizzCriado = [];
+let quizEscolhido = ""
 
-function abrirQuiz() {
-    let promessaQuiz = axios.get('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/4000');
+function abrirQuiz(argumento) {
+    if (quizEscolhido===""){
+        quizEscolhido = argumento.children[0].alt
+    }
+    let promessaQuiz = axios.get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${quizEscolhido}`);
     promessaQuiz.then(sucessoQuiz);
     promessaQuiz.catch(erroQuiz);
 }
@@ -34,13 +38,14 @@ function sucessoQuiz(resposta) {
     qtdRespostas = 0;
     certa = 0;
     minValores = [];
-    qtdRespostas = resposta.data.levels.length
+    qtdRespostas = resposta.data.questions.length
     conteudo.innerHTML =
         `<div class="banner">
             <img class="bannerImg" src="${resposta.data.image}"></img>
             <h1>${resposta.data.title}</h1>
         </div>
         <div class="paginaQuiz"></div>`
+    scrollarTop()
     paginaQuiz = document.querySelector('.paginaQuiz');
     paginaQuiz.style.margin = "0";
     for (let i = 0; i < resposta.data.questions.length; i++) {
@@ -81,8 +86,8 @@ function sucessoQuiz(resposta) {
         </div>`
     }
     paginaQuiz.innerHTML += `
-    <button class="botaoQuiz botaoVermelho" onclick="abrirQuiz(); scrollarTop()">Reiniciar Quizz</button>
-    <button class="botaoQuiz botaoBranco" onclick="reseta()">Voltar pra home</button>
+    <button class="botaoQuiz botaoVermelho oculta" onclick="abrirQuiz(); scrollarTop()">Reiniciar Quizz</button>
+    <button class="botaoQuiz botaoBranco oculta" onclick="reseta()">Voltar pra home</button>
     `
 }
 function erroQuiz(resposta) {
@@ -130,6 +135,11 @@ function testaFim(argumento) {
                 if (pontuacao >= minValores[i] && pontuacao <= minValores[i + 1]) {
                     const resultado = document.querySelector(`.r${i}`)
                     const tituloResultado = resultado.children[0]
+                    const botaoVermelho = document.querySelector('.botaoVermelho')
+                    const botaoBranco = document.querySelector('.botaoBranco')
+                    console.log(botaoBranco)
+                    botaoVermelho.classList.remove('oculta')
+                    botaoBranco.classList.remove('oculta')
                     resultado.classList.remove('oculta')
                     tituloResultado.innerHTML = `${pontuacao}% de acerto: ${tituloResultado.innerHTML}`
                     setTempoResultado(resultado)
@@ -139,6 +149,11 @@ function testaFim(argumento) {
                 const todosresultados = document.querySelectorAll(`.resultadoQuiz`)
                 const resultado = todosresultados[(todosresultados.length) - 1]
                 const tituloResultado = resultado.children[0]
+                const botaoVermelho = document.querySelector('.botaoVermelho')
+                const botaoBranco = document.querySelector('.botaoBranco')
+                resultado.classList.remove('oculta')
+                botaoVermelho.classList.remove('oculta')
+                botaoBranco.classList.remove('oculta')
                 resultado.classList.remove('oculta')
                 tituloResultado.innerHTML = `${pontuacao}% de acerto: ${tituloResultado.innerHTML}`
                 setTempoResultado(resultado)
@@ -181,7 +196,7 @@ function ListarQuizzes(resposta) {
 
     for (let i = 0; i < listaQuizzes.length; i++) {
         quizzes.innerHTML += `
-            <div class="quizz" onclick="abrirQuiz()">
+            <div class="quizz" onclick="abrirQuiz(this)">
                 <img src="${listaQuizzes[i].image}"
                     alt="${listaQuizzes[i].id}">
                 <p>${listaQuizzes[i].title}</p>
