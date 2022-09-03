@@ -93,6 +93,10 @@ textarea:focus {
     outline: none;
 }
 
+img {
+    object-fit: cover;
+}
+
 .escondido {
     display: none;
 }
@@ -120,6 +124,7 @@ textarea:focus {
     font-weight: 700;
     color: #FFFFFF;
     margin-bottom: 18px;
+    word-wrap: break-word;
 }
 
 .respostasDiv {
@@ -174,7 +179,7 @@ textarea:focus {
     box-shadow: 0px 0px 10px #00000007;
 }
 
-.títuloResultado {
+.tituloResultado {
     background-color: #EC362D;
     width: 727px;
     height: 99px;
@@ -185,6 +190,7 @@ textarea:focus {
     font-weight: 700;
     color: #FFFFFF;
     margin-bottom: 18px;
+
 }
 
 .imgEDescricao {
@@ -260,6 +266,16 @@ textarea:focus {
     height: 100%;
 
     margin: 5vw auto 0 auto;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.paginaQuiz {
+    width: 1050px;
+    height: 100%;
+
 
     display: flex;
     flex-direction: column;
@@ -401,16 +417,37 @@ textarea:focus {
     border: none;
     border-radius: 15px;
 
-    margin: 10vw 0;
+    margin: 5vw 0;
 }
 
 .criacao-respostas-incorretas>div {
     margin-bottom: 30px;
 }
 
+.sucesso {
+    width: 500px;
+    height: 260px;
+}
+
+.home {
+    font-size: 21px;
+
+    color: #818181;
+    background: none;
+    border: none;
+}
+
 @media (max-width: 1050px) {
     .container {
         width: 700px;
+    }
+
+    .conteudo {
+        width: 100%;
+    }
+
+    .paginaQuiz {
+        width: 100%;
     }
 }
 
@@ -464,7 +501,6 @@ textarea:focus {
 
     .tituloResultado {
         width: 100%;
-        padding: 0 18px;
     }
 
     .imgEDescricao {
@@ -521,9 +557,14 @@ textarea:focus {
     .imgResposta {
         max-height: 134px;
     }
+
+    .sucesso {
+        width: 340px;
+        height: 181px;
+    }
 }
 
-@media (max-width: 500px) {
+@media (max-width: 374px) {
     .imgResposta {
         max-height: 101px;
     }
