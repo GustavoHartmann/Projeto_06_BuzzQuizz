@@ -133,7 +133,7 @@ function testaFim(argumento) {
         if (respondidos.length === qtdRespostas) {
             let pontuacao = Math.round(certa / qtdRespostas * (100))
             for (let i = 0; i < minValores.length; i++) {
-                if (pontuacao >= minValores[i] && pontuacao <= minValores[i + 1]) {
+                if (pontuacao >= minValores[i] && pontuacao < minValores[i + 1]) {
                     const resultado = document.querySelector(`.r${i}`)
                     const tituloResultado = resultado.children[0]
                     const botaoVermelho = document.querySelector('.botaoVermelho')
@@ -563,5 +563,16 @@ function criarNovoQuizz() {
 }
 
 function enviarQuizzUsuarioParaServidor() {
-    //const promessa = axios.post("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes", novoQuizzCriado)
+    const promessa = axios.post("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes", novoQuizzCriado)
+    promessa.then(chamaQuizzes)
+    promessa.catch(alert('iiiii deu erro'))
+}
+
+function chamaQuizzes(){
+    const promessa = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes");
+    promessa.then(pegaId)
+    promessa.catch(alert('iiiii deu erro'))
+}
+function pegaId(argumento){
+    localStorage.setItem("idQuiz",`${argumento.data[0].id}`)
 }
