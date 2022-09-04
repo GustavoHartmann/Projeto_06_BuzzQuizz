@@ -49,7 +49,6 @@ function sucessoQuiz(resposta) {
         <div class="paginaQuiz"></div>`
     scrollarTop()
     paginaQuiz = document.querySelector('.paginaQuiz');
-    paginaQuiz.style.margin = "0";
     for (let i = 0; i < resposta.data.questions.length; i++) {
         resposta.data.questions[i].answers.sort(comparador)
         paginaQuiz.innerHTML += `
@@ -181,6 +180,52 @@ function scrollarTop() {
 
 function comparador() {
     return Math.random() - 0.5;
+}
+
+function testaQuizesCriados(){
+    if (localStorage.quizesListados!==undefined && localStorage.quizesListados!=="0"){
+        container.innerHTML = 
+            `<div class="quizes-criados">
+                <div class="tituloSeusQuizzes">
+                    <p>Seus Quizzes</p>
+                    <ion-icon name="add-circle" onclick="criarQuizz()"></ion-icon>
+                </div>
+                <div class="seus-quizzes"></div>
+            </div>
+
+            <div class="todos-quizzes">
+                <h2>Todos os Quizzes</h2>
+
+                <div class="quizzes"></div>
+            </div>`
+        pegarSeusQuizes()
+    }
+}
+testaQuizesCriados()
+
+function pegarSeusQuizes(){
+    for (let i=1; i<=Number(localStorage.getItem("quizesCriados")); i++){
+        if (localStorage.getItem(`idQuiz${i}`)!==undefined){
+            let idQuiz = localStorage.getItem(`idQuiz${i}`)
+            console.log(idQuiz)
+            let promessa = axios.get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${idQuiz}`);
+            promessa.then(apareceSeuQuiz);
+            promessa.catch(erroQuiz);
+        }
+    }
+}
+
+function apareceSeuQuiz(argumento){
+    const listaQuizzes = argumento.data
+    console.log(listaQuizzes)
+    let seusQuizzes = document.querySelector(".seus-quizzes");
+    seusQuizzes.innerHTML+= `
+    <div class="quizz" onclick="abrirQuiz(this)">
+        <img src="${listaQuizzes.image}"
+            alt="${listaQuizzes.id}">
+        <p>${listaQuizzes.title}</p>
+    </div>
+`
 }
 
 function BuscarQuizzes() {
