@@ -25,6 +25,7 @@ let URLNivelQuizzCriado = [];
 let descriçãoNivelQuizzCriado = [];
 let novoQuizzCriado = {};
 let quizEscolhido = ""
+let ultimoQuizCriado = ""
 
 function abrirQuiz(argumento) {
     if (quizEscolhido === "") {
@@ -472,14 +473,20 @@ function finalizarQuizz() {
     <div class="container">
         <h2>Seu quizz está pronto</h2>
 
-        <div class="quizz sucesso">
+        <div class="quizz sucesso" onclick="abreQuizCriado()">
             <img src="${URLImagemQuizzCriado}" alt="imagem do quizz">
             <p>${tituloQuizzCriado}</p>
         </div>
-        <button class="botao">Acessar o quizz</button>
-           <button class="home">Voltar para o Home</button>
+        <button class="botao" onclick="abreQuizCriado()">Acessar o quizz</button>
+           <button class="home" onclick="reseta()>Voltar para o Home</button>
     </div>
     `
+}
+
+function abreQuizCriado(){
+    let promessaQuiz = axios.get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${ultimoQuizCriado}`);
+    promessaQuiz.then(sucessoQuiz);
+    promessaQuiz.catch(erroQuiz);
 }
 
 function criarNovoQuizz() {
@@ -564,15 +571,29 @@ function criarNovoQuizz() {
 
 function enviarQuizzUsuarioParaServidor() {
     const promessa = axios.post("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes", novoQuizzCriado)
-    promessa.then(chamaQuizzes)
-    promessa.catch(alert('iiiii deu erro'))
-}
-
-function chamaQuizzes(){
-    const promessa = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes");
     promessa.then(pegaId)
     promessa.catch(alert('iiiii deu erro'))
 }
+
 function pegaId(argumento){
-    localStorage.setItem("idQuiz",`${argumento.data[0].id}`)
+    console.log(argumento)
+    if (localStorage.length===0){
+        localStorage.setItem("quizesCriados","1")
+        localStorage.setItem("quizesListados", "1")
+        localStorage.setItem("idQuiz1",`${argumento.data.id}`)
+    } else {
+        let quizesCriadosDesserializado = JSON.parse(localStorage.quizesCriados);
+        quizesCriadosDesserializado++
+        let quizesCriadosSerializado = JSON.stringify(quizesCriadosDesserializado);
+        localStorage.setItem("quizesCriados", `${quizesCriadosSerializado}`)
+    
+        let quizesListadosDesserializado = JSON.parse(localStorage.quizesListados);
+        quizesListadosDesserializado++
+        let quizesListadosSerializado = JSON.stringify(quizesListadosDesserializado);
+        localStorage.setItem("quizesListados", `${quizesListadosSerializado}`)
+    
+        
+        localStorage.setItem(`idQuiz${Number(localStorage.quizesCriados)}`,`${argumento.data.id}`)
+        ultimoQuizCriado = argumento.data.id
+    }
 }
