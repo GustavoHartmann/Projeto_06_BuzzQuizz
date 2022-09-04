@@ -523,7 +523,7 @@ function finalizarQuizz() {
             <p>${tituloQuizzCriado}</p>
         </div>
         <button class="botao" onclick="abreQuizCriado()">Acessar o quizz</button>
-           <button class="home" onclick="reseta()>Voltar para o Home</button>
+           <button class="home" onclick="reseta()">Voltar para o Home</button>
     </div>
     `
 }
