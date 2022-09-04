@@ -31,6 +31,10 @@ header {
     z-index: 5;
 }
 
+.todos-quizzes h2{
+    margin-bottom: 13px;
+}
+
 h2 {
     font-size: 20px;
     font-weight: bold;
@@ -350,12 +354,14 @@ img {
 .tituloSeusQuizzes{
     display: flex;
     align-items: center;
+    margin-bottom: 13px;
 }
 
 .seus-quizzes {
     width: 100%;
     display: flex;
     position: relative;
+    flex-wrap: wrap;
 }
 
 .seus-quizzes ion-icon {
@@ -381,7 +387,7 @@ img {
 
     position: relative;
 
-    margin: 3vw 5px 0 5px;
+    margin: 0px 5px 13px 5px;
 
     background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64.58%, #000000 100%);
 
@@ -576,6 +582,29 @@ img {
     .container {
         width: 100%;
         padding: 0 16px;
+    }
+
+    .quizes-criados{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .tituloSeusQuizzes{
+        justify-content: space-between;
+        max-width: 330px;
+        width: 100%;
+    }
+
+    .todos-quizzes{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .todos-quizzes h2{
+        width: 100%;
+        max-width: 330px;
     }
 
     .quizzes{

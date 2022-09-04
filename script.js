@@ -26,16 +26,20 @@ let descriçãoNivelQuizzCriado = [];
 let novoQuizzCriado = {};
 let quizEscolhido = ""
 let ultimoQuizCriado = ""
+const loading = document.querySelector(".telaLoading")
+const classesLoading = loading.classList
 
 function abrirQuiz(argumento) {
     if (quizEscolhido === "") {
         quizEscolhido = argumento.children[0].alt
     }
+    classesLoading.remove('oculta')
     let promessaQuiz = axios.get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${quizEscolhido}`);
     promessaQuiz.then(sucessoQuiz);
     promessaQuiz.catch(erroQuiz);
 }
 function sucessoQuiz(resposta) {
+    classesLoading.add('oculta')
     respondidos = [];
     qtdRespostas = 0;
     certa = 0;
@@ -229,6 +233,7 @@ function apareceSeuQuiz(argumento){
 }
 
 function BuscarQuizzes() {
+    classesLoading.remove('oculta')
     const promessa = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes");
 
     promessa.then(ListarQuizzes);
@@ -238,6 +243,7 @@ function BuscarQuizzes() {
 BuscarQuizzes();
 
 function ListarQuizzes(resposta) {
+    classesLoading.add('oculta')
     const listaQuizzes = resposta.data;
     const quizzes = document.querySelector(".todos-quizzes .quizzes");
 
@@ -529,6 +535,7 @@ function finalizarQuizz() {
 }
 
 function abreQuizCriado(){
+    classesLoading.remove('oculta')
     let promessaQuiz = axios.get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${ultimoQuizCriado}`);
     promessaQuiz.then(sucessoQuiz);
     promessaQuiz.catch(erroQuiz);
@@ -615,12 +622,14 @@ function criarNovoQuizz() {
 }
 
 function enviarQuizzUsuarioParaServidor() {
+    classesLoading.remove('oculta')
     const promessa = axios.post("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes", novoQuizzCriado)
     promessa.then(pegaId)
-    promessa.catch(alert('iiiii deu erro'))
+    promessa.catch()
 }
 
 function pegaId(argumento){
+    classesLoading.add('oculta')
     console.log(argumento)
     if (localStorage.length===0){
         localStorage.setItem("quizesCriados","1")
